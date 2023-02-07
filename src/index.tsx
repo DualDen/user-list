@@ -10,9 +10,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+const store = setupStore();
+console.log(store);
 root.render(
   <React.StrictMode>
-      <Provider store={setupStore()}>
+      <Provider store={store}>
           <BrowserRouter>
               <App />
           </BrowserRouter>

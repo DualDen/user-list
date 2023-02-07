@@ -1,4 +1,91 @@
 body{
-    background: #000;
+    background: #333333!important;
+    height: 100vh;
 }
+#root{
+    font-family: "Montserrat", sans-serif;
+}
+h1{
+    color: #fff;
+}
+.formField{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.formField input{
+    border-radius: 6px;
+    padding: 5px;
+    border: 1px solid rgba(0,0,0,.4);
+}
+.formField label{
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.modal-dialog button{
+    margin-left: auto;
+}
+.submitButton{
+    width: 100%;
+    text-align: right;
+    margin-top: 30px;
+}
+.userItem{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+.userItem div{
+    margin-right: 7px;
+}
+.userItem .userItemImage{
+    margin-right: 25px;
+}
+.userItemAvatar{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.userItemLastName, .userItemFirstName, .userItemPatronymic, .userItemEmail{
+    text-decoration: none;
+    outline: none;
+    border-bottom: none;
+}
+.userItemLastName, .userItemFirstName{
+    color: #fff;
+}
+.userItemName{
+    display: flex;
+    color: #ffffff;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+}
+.userItemEmail{
+    font-size: 14px;
+    color: rgba(255,255,255,.6);
 
+}
+.currentUserImage img{
+    width: 250px;
+    border-radius: 50%;
+    height: 250px;
+}
+.currentUserImage{
+    margin-right: 50px;
+}
+.userMainInfo{
+    display: flex;
+}
+.currentUserName{
+    display: flex;
+    font-size: 30px;
+}
+.currentUserName div{
+    margin-right: 10px;
+    font-weight: 700;
+}
+.currentUserAboutMe{
+    color: #fff;
+    margin-top: 30px;
+    font-size: 20px;
+}

@@ -9,6 +9,7 @@ import * as yup from 'yup';
 interface AddUserModalProps {
     modalShow: boolean,
     setModalShow: Dispatch<boolean>,
+    users: User[],
 }
 
 const validationSchema = yup.object().shape({
@@ -18,7 +19,7 @@ const validationSchema = yup.object().shape({
     avatar: yup.string().url("This field must be url"),
 });
 
-const AddUserModal: FC<AddUserModalProps> = ({modalShow,setModalShow}) => {
+const AddUserModal: FC<AddUserModalProps> = ({modalShow,setModalShow,users}) => {
     const handleHide = () => setModalShow(false);
     const dispatch = useAppDispatch();
     const {addUser} = userSlice.actions;
@@ -48,7 +49,14 @@ const AddUserModal: FC<AddUserModalProps> = ({modalShow,setModalShow}) => {
                             dispatch(addUser(values));
                         }
                     } validate={(values) => {
-                        const errors = {}
+                        interface Errors {
+                            email?: string,
+                        }
+                        const errors:Errors = {};
+                        if(users.find(user => user.email === values.email)) {
+                            errors.email = "Not unique email";
+                        }
+                        return errors;
                     }}
                             validationSchema={validationSchema}>
                         { ({errors,touched,values}) => (
@@ -89,7 +97,8 @@ const AddUserModal: FC<AddUserModalProps> = ({modalShow,setModalShow}) => {
 
                             <div className={"submitButton"}>
                             <Button variant="primary" type={'submit'} onClick={()=> {
-                                if (values.email === "" || values.firstName === "" || values.lastName === "") {
+                                if (values.email === "" || values.firstName === "" || values.lastName === "" || errors.email === "Not unique email") {
+                                    values.email = "";
                                     return
                                 }
                                 handleHide();

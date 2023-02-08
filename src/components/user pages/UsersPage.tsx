@@ -20,7 +20,7 @@ const UsersPage:FC = () => {
 
     return (
         <div>
-            <AddUserModal modalShow={modalShow} setModalShow={setModalShow}/>
+            <AddUserModal users={users} modalShow={modalShow} setModalShow={setModalShow}/>
             <RemoveUsersModal show={removeUserModalShow} setShow={setRemoveUserModalShow} names={checkedNames} ids={checkedArr}
             setNames={setCheckedNames} setIds={setCheckedArr}
             />

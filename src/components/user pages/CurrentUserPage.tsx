@@ -27,7 +27,7 @@ const CurrentUserPage:FC = () => {
 
     return (
         <div>
-            <Button onClick={() => {setModalShow(true)}}>Edit User</Button>
+            <Button style={{marginTop: 20,marginBottom:20,marginRight: 50}} onClick={() => {setModalShow(true)}}>Edit User</Button>
             <Button onClick={() => {dispatch(removeUser(user.id))}}>Delete User</Button>
             <EditUserModal user={user} id={user?.id} modalShow={modalShow} setModalShow={setModalShow}/>
             <div className={"userContainer"}>

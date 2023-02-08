@@ -3,7 +3,7 @@ import {Button, Modal} from "react-bootstrap";
 import {Form, Formik,Field} from "formik";
 import {userSlice} from "../../store/reducers/UserSlice";
 import {User} from "../../types/User";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {useAppDispatch} from "../../hooks/redux";
 import * as yup from 'yup';
 
 interface AddUserModalProps {
@@ -15,6 +15,7 @@ const validationSchema = yup.object().shape({
     email: yup.string().email('Enter a valid email').required('Email is required'),
     firstName: yup.string().required("First Name is required"),
     lastName: yup.string().required('Last Name is required'),
+    avatar: yup.string().url("This field must be url"),
 });
 
 const AddUserModal: FC<AddUserModalProps> = ({modalShow,setModalShow}) => {
@@ -23,9 +24,6 @@ const AddUserModal: FC<AddUserModalProps> = ({modalShow,setModalShow}) => {
     const {addUser} = userSlice.actions;
     const id = Math.floor(Math.random() * 100);
     const date = new Date().getTime().toString();
-    const emailValidation = (message:string) => {
-
-    }
     const initialValues:User = {
         id: id,
         createDate: date,
@@ -58,6 +56,7 @@ const AddUserModal: FC<AddUserModalProps> = ({modalShow,setModalShow}) => {
                             <div className={"formField"}>
                             <label htmlFor={"avatar"}>Avatar</label>
                             <Field id={"avatar"} name={"avatar"} placeholder={"Link to your avatar"}/>
+                                {errors.avatar && touched.avatar ? <div className="error">{errors.avatar}</div> : null}
                             </div>
 
                             <div className={"formField"}>

@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import UsersPage from "./components/UsersPage";
-import {Routes, Route} from "react-router-dom";
-import CurrentUserPage from "./components/CurrentUserPage";
+import UsersPage from "./components/user pages/UsersPage";
+import {Routes, Route,Navigate} from "react-router-dom";
+import CurrentUserPage from "./components/user pages/CurrentUserPage";
 
 function App() {
   return (

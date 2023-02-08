@@ -89,3 +89,12 @@ h1{
     margin-top: 30px;
     font-size: 20px;
 }
+body .input-group-text{
+    border: 0;
+    background: transparent;
+}
+.error{
+    color: red;
+    opacity: .7;
+    font-size: 12px;
+}

@@ -1,9 +1,9 @@
 import React, {Dispatch, FC} from 'react';
 import {Button, Modal} from "react-bootstrap";
 import {Form, Formik,Field} from "formik";
-import {userSlice} from "../store/reducers/UserSlice";
-import {User} from "../types/User";
-import {useAppDispatch, useAppSelector} from "../hooks/redux";
+import {userSlice} from "../../store/reducers/UserSlice";
+import {User} from "../../types/User";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import * as yup from 'yup';
 
 interface AddUserModalProps {
@@ -11,20 +11,21 @@ interface AddUserModalProps {
     setModalShow: Dispatch<boolean>,
 }
 
-const validationSchema = yup.object({
-    email: yup
-        .string()
-        .email('Enter a valid email')
-        .required('Email is required'),
+const validationSchema = yup.object().shape({
+    email: yup.string().email('Enter a valid email').required('Email is required'),
+    firstName: yup.string().required("First Name is required"),
+    lastName: yup.string().required('Last Name is required'),
 });
 
 const AddUserModal: FC<AddUserModalProps> = ({modalShow,setModalShow}) => {
     const handleHide = () => setModalShow(false);
     const dispatch = useAppDispatch();
-    const {users} = useAppSelector(state => state.userSlice)
     const {addUser} = userSlice.actions;
     const id = Math.floor(Math.random() * 100);
     const date = new Date().getTime().toString();
+    const emailValidation = (message:string) => {
+
+    }
     const initialValues:User = {
         id: id,
         createDate: date,
@@ -45,21 +46,14 @@ const AddUserModal: FC<AddUserModalProps> = ({modalShow,setModalShow}) => {
                 </Modal.Header>
                 <Modal.Body>
                     <Formik initialValues={initialValues}  onSubmit={
-                        (values,actions) => {
+                        (values) => {
                             dispatch(addUser(values));
                         }
-
-                    } validate={values => {
-                        const errors:any = {};
-                        if (!values.email) {
-                            errors.email = 'Required';
-                        } else if (
-                            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                        ) {
-                            errors.email = 'Invalid email address';
-                        }
-                        return errors;
-                    }}>
+                    } validate={(values) => {
+                        const errors = {}
+                    }}
+                            validationSchema={validationSchema}>
+                        { ({errors,touched,values}) => (
                         <Form>
                             <div className={"formField"}>
                             <label htmlFor={"avatar"}>Avatar</label>
@@ -69,11 +63,13 @@ const AddUserModal: FC<AddUserModalProps> = ({modalShow,setModalShow}) => {
                             <div className={"formField"}>
                             <label htmlFor={"firstName"}>First Name</label>
                             <Field id={"firstName"} name={"firstName"} placeholder={"Your first name"}/>
+                                {errors.firstName && touched.firstName ? <div className="error">{errors.firstName}</div> : null}
                             </div>
 
                             <div className={"formField"}>
                             <label htmlFor={"lastName"}>Last Name</label>
                             <Field id={"lastName"} name={"lastName"} placeholder={"Your last name"}/>
+                                {errors.lastName && touched.lastName ? <div className="error">{errors.lastName}</div> : null}
                             </div>
 
                             <div className={"formField"}>
@@ -84,6 +80,7 @@ const AddUserModal: FC<AddUserModalProps> = ({modalShow,setModalShow}) => {
                             <div className={"formField"}>
                             <label htmlFor={"email"}>E-mail</label>
                             <Field id={"email"} name={"email"} placeholder={"Your e-mail"}/>
+                                {errors.email && touched.email ? <div className="error">{errors.email}</div> : null}
                             </div>
 
                             <div className={"formField"}>
@@ -92,11 +89,19 @@ const AddUserModal: FC<AddUserModalProps> = ({modalShow,setModalShow}) => {
                             </div>
 
                             <div className={"submitButton"}>
-                            <Button variant="primary" type={'submit'} onClick={handleHide}>
+                            <Button variant="primary" type={'submit'} onClick={()=> {
+                                if (values.email === "" || values.firstName === "" || values.lastName === "") {
+                                    return
+                                }
+                                handleHide();
+
+
+                            }}>
                                 Create User
                             </Button>
                             </div>
                         </Form>
+                            )}
                     </Formik>
                 </Modal.Body>
 

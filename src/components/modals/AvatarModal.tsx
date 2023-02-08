@@ -1,7 +1,7 @@
 import React, {Dispatch, FC} from 'react';
 import {Modal} from "react-bootstrap";
-import {avatarApi} from "../api/AvatarService";
-import {User} from "../types/User";
+import {avatarApi} from "../../api/AvatarService";
+import {User} from "../../types/User";
 
 interface AvatarModalProps {
     isShowed: boolean,

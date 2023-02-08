@@ -1,7 +1,7 @@
 import React, {Dispatch, FC, useState} from 'react';
-import {useAppDispatch} from "../hooks/redux";
-import {userSlice} from "../store/reducers/UserSlice";
-import {User} from "../types/User";
+import {useAppDispatch} from "../../hooks/redux";
+import {userSlice} from "../../store/reducers/UserSlice";
+import {User} from "../../types/User";
 import {Button, Modal} from "react-bootstrap";
 import {Field, Form, Formik} from "formik";
 import AvatarModal from "./AvatarModal";
@@ -24,12 +24,12 @@ const EditUserModal:FC<EditUserModalProps> = ({modalShow,setModalShow,id,user}) 
     const initialValues:User = {
         id: id,
         createDate: date,
-        avatar: avatar !== "" ? avatar : user.avatar,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        patronymic: user.patronymic,
-        email: user.email,
-        about: user.about,
+        avatar: avatar !== "" ? avatar : user?.avatar,
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        patronymic: user?.patronymic,
+        email: user?.email,
+        about: user?.about,
     };
 
 

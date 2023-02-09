@@ -22,8 +22,8 @@ const RemoveUsersModal:FC<RemoveUsersModalProps> = ({show,setShow,names,ids,setN
                     Are you sure that you want to remove this users?
                 </Modal.Header>
                 <Modal.Body>
-                    {names.map(name =>
-                        <div className="mb-10">{name}</div>
+                    {names.map((name,index) =>
+                        <div key={index} className="mb-10">{name}</div>
                     )}
                 </Modal.Body>
                 <Modal.Footer>
